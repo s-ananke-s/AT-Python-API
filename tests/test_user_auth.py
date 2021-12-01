@@ -10,7 +10,7 @@ class TestUserAuth(BaseCase):
         ("no_token")
     ]
 
-    def setUp(self):
+    def setup(self):
         data = {
             'email': 'vinkotov@example.com',
             'password': '1234'
