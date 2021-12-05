@@ -118,10 +118,10 @@ class TestUserEdit(BaseCase):
 
         # Get second user
 
-        response4 = MyRequests.get(f"/user/{user_id2}",
+        response6 = MyRequests.get(f"/user/{user_id2}",
                                    headers={"x-csrf-token": token2},
                                    cookies={"auth_sid": auth_sid2})
-        Assertions.assert_json_value_by_name(response4, "firstName", first_name2, "Wrong name of user after edit")
+        Assertions.assert_json_value_by_name(response6, "firstName", first_name2, "Wrong name of user after edit")
 
     def test_edit_email_to_wrong_by_authorized_user(self):
         # Register
