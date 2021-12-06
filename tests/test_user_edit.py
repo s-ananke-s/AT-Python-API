@@ -3,7 +3,7 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 import json
 import allure
-
+import time
 
 class TestUserEdit(BaseCase):
     @allure.feature("Edit user")
@@ -78,6 +78,7 @@ class TestUserEdit(BaseCase):
             password = register_data['password']
 
         with allure.step("Регистрация второго пользователя"):
+            time.sleep(3)
             register_data2 = self.prepare_registration_data()
             response2 = MyRequests.post("/user/", data=register_data2)
 
