@@ -30,7 +30,7 @@ class TestUserRegister(BaseCase):
     def test_create_user_with_existing_email(self):
         with allure.step("Генерируем существующий email"):
             email = 'vinkotov@example.com'
-            data = self.prepare_registration_data(email)
+            data = self.prepare_registration_data(None,email)
             response = MyRequests.post("/user/", data=data)
         with allure.step("Проверяем что email некоррекный"):
             Assertions.assert_code_status(response, 400)
@@ -40,8 +40,9 @@ class TestUserRegister(BaseCase):
     @allure.story("Создание пользователя с некорректным email")
     def test_create_user_with_incorrect_email(self):
         with allure.step("Генерируем некорректный email"):
-            email = 'test-example.com'
-            data = self.prepare_registration_data(email)
+            random_string = self.generate_random_string(5)
+            email = f'test-example{random_string}.com'
+            data = self.prepare_registration_data(None,email)
             response = MyRequests.post("/user/", data=data)
         with allure.step("Проверяем что email некоррекный"):
             Assertions.assert_code_status(response, 400)
@@ -52,7 +53,7 @@ class TestUserRegister(BaseCase):
     def test_create_user_with_short_name(self):
         with allure.step("Генерируем username с очень маленьким количеством символов"):
             username = 'a'
-            data = self.prepare_registration_data(username)
+            data = self.prepare_registration_data(username, None)
             response = MyRequests.post("/user/", data=data)
         with allure.step("Проверяем что username некоррекный"):
             Assertions.assert_code_status(response, 400)
@@ -63,7 +64,7 @@ class TestUserRegister(BaseCase):
     def test_crete_user_with_long_name(self):
         with allure.step("Генерируем username с очень большим количеством символов"):
             username = self.generate_random_string(251)
-            data = self.prepare_registration_data(username)
+            data = self.prepare_registration_data(username, None)
             response = MyRequests.post("/user/", data=data)
         with allure.step("Проверяем что username некоррекный"):
             Assertions.assert_code_status(response, 400)
