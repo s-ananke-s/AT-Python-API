@@ -5,8 +5,9 @@ import json
 import allure
 import time
 
+
+@allure.epic("Edit user")
 class TestUserEdit(BaseCase):
-    @allure.feature("Edit user")
     @allure.story("Редактирование только что созданного и авторизованного пользователя")
     def test_edit_just_created_user(self):
         with allure.step("Регистрация"):
@@ -130,6 +131,7 @@ class TestUserEdit(BaseCase):
                                        cookies={"auth_sid": auth_sid2})
             Assertions.assert_json_value_by_name(response6, "firstName", first_name2, "Wrong name of user after edit")
 
+    @allure.story("Редактирование данных пользователя на некорректный email")
     def test_edit_email_to_wrong_by_authorized_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()
@@ -162,6 +164,7 @@ class TestUserEdit(BaseCase):
             Assertions.assert_code_status(response3, 400)
             assert response3.content.decode("utf-8") == f"Invalid email format"
 
+    @allure.story("Редактирование данных пользователя на некорректный firstName")
     def test_edit_first_name_to_short_by_authorized_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()

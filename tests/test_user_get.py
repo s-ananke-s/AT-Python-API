@@ -4,8 +4,8 @@ from lib.assertions import Assertions
 import allure
 
 
+@allure.epic("Get user")
 class TestUserGet(BaseCase):
-    @allure.feature("Get user")
     @allure.story("Поулчение данных пользователя неавторизованным пользователем")
     def test_get_user_details_not_auth(self):
         with allure.step("Пытаемся получить данные пользователя с id 2"):

@@ -5,6 +5,7 @@ import pytest
 import allure
 
 
+@allure.epic("Register user")
 class TestUserRegister(BaseCase):
     user_data = [
         ("","learqa","learqa","learqa","leanqatest1@example.com"),
@@ -14,7 +15,6 @@ class TestUserRegister(BaseCase):
         ("123","learqa","learqa","learqa","")
     ]
 
-    @allure.feature("Register")
     @allure.severity("blocker")
     @allure.story("Успешное создание пользователя")
     def test_create_user_successfully(self):
