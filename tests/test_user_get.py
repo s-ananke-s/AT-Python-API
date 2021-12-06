@@ -6,7 +6,7 @@ import allure
 
 @allure.epic("Get user")
 class TestUserGet(BaseCase):
-    @allure.story("Поулчение данных пользователя неавторизованным пользователем")
+    @allure.title("Поулчение данных пользователя неавторизованным пользователем")
     def test_get_user_details_not_auth(self):
         with allure.step("Пытаемся получить данные пользователя с id 2"):
             response = MyRequests.get("/user/2")
@@ -19,7 +19,7 @@ class TestUserGet(BaseCase):
         with allure.step("Проверяем, что не доступен lastName"):
             Assertions.assert_json_has_not_key(response, "lastName")
 
-    @allure.story("Получение данных пользователя авторизованным пользователем")
+    @allure.title("Получение данных пользователя авторизованным пользователем")
     def test_get_user_details_auth_as_same_user(self):
         with allure.step("Заходим под пользователем с id 2"):
             data = {
@@ -38,7 +38,7 @@ class TestUserGet(BaseCase):
             expected_fields = ["username", "email", "firstName", "lastName"]
             Assertions.assert_json_has_keys(response2, expected_fields)
 
-    @allure.story("Получение данных пользователя другим авторизованным пользователем")
+    @allure.title("Получение данных пользователя другим авторизованным пользователем")
     def test_get_other_user(self):
         with allure.step("Заходим под пользователем с id 2"):
             data = {

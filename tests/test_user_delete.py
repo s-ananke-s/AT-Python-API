@@ -7,7 +7,7 @@ import allure
 
 @allure.epic("Delete user")
 class TestUserDelete(BaseCase):
-    @allure.story("Тест на попытку удаления системного пользователя")
+    @allure.title("Тест на попытку удаления системного пользователя")
     def test_delete_user_with_id_2(self):
         with allure.step("Логин"):
             login_data = {
@@ -27,7 +27,7 @@ class TestUserDelete(BaseCase):
             Assertions.assert_code_status(response2, 400)
             assert response2.content.decode("utf-8") == f"Please, do not delete test users with ID 1, 2, 3, 4 or 5."
 
-    @allure.story("Тест на успешное удаление авторизованным пользователем")
+    @allure.title("Тест на успешное удаление авторизованным пользователем")
     def test_delete_authorized_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()
@@ -64,7 +64,7 @@ class TestUserDelete(BaseCase):
                                        cookies={"auth_sid": auth_sid})
             assert response4.content.decode("utf-8") == f"User not found"
 
-    @allure.story("Тест на попытку удалить другого пользователя")
+    @allure.title("Тест на попытку удалить другого пользователя")
     def test_delete_another_user(self):
         with allure.step("Регистрация первого пользователя"):
             register_data = self.prepare_registration_data()

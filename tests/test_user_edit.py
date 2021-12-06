@@ -8,7 +8,7 @@ import time
 
 @allure.epic("Edit user")
 class TestUserEdit(BaseCase):
-    @allure.story("Редактирование только что созданного и авторизованного пользователя")
+    @allure.title("Редактирование только что созданного и авторизованного пользователя")
     def test_edit_just_created_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()
@@ -47,7 +47,7 @@ class TestUserEdit(BaseCase):
                                        cookies={"auth_sid": auth_sid})
             Assertions.assert_json_value_by_name(response4, "firstName", new_name, "Wrong name of user after edit")
 
-    @allure.story("Редактирование неавторизованного пользователя")
+    @allure.title("Редактирование неавторизованного пользователя")
     def test_user_edit_not_authorized(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()
@@ -66,7 +66,7 @@ class TestUserEdit(BaseCase):
             Assertions.assert_code_status(response3, 400)
             print(response3.content)
 
-    @allure.story("Редактирование неавторизованного пользователя")
+    @allure.title("Редактирование неавторизованного пользователя")
     def test_user_edit_another_user_authorized(self):
         with allure.step("Регистрация первого пользователя"):
             register_data = self.prepare_registration_data()
@@ -131,7 +131,7 @@ class TestUserEdit(BaseCase):
                                        cookies={"auth_sid": auth_sid2})
             Assertions.assert_json_value_by_name(response6, "firstName", first_name2, "Wrong name of user after edit")
 
-    @allure.story("Редактирование данных пользователя на некорректный email")
+    @allure.title("Редактирование данных пользователя на некорректный email")
     def test_edit_email_to_wrong_by_authorized_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()
@@ -164,7 +164,7 @@ class TestUserEdit(BaseCase):
             Assertions.assert_code_status(response3, 400)
             assert response3.content.decode("utf-8") == f"Invalid email format"
 
-    @allure.story("Редактирование данных пользователя на некорректный firstName")
+    @allure.title("Редактирование данных пользователя на некорректный firstName")
     def test_edit_first_name_to_short_by_authorized_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()

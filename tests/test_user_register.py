@@ -16,7 +16,7 @@ class TestUserRegister(BaseCase):
     ]
 
     @allure.severity("blocker")
-    @allure.story("Успешное создание пользователя")
+    @allure.title("Успешное создание пользователя")
     def test_create_user_successfully(self):
         with allure.step("Генерируем корректные данные для регистрации"):
             data = self.prepare_registration_data()
@@ -26,7 +26,7 @@ class TestUserRegister(BaseCase):
             Assertions.assert_json_has_key(response, "id")
 
     @allure.severity("blocker")
-    @allure.story("Создание пользователя с существующим email")
+    @allure.title("Создание пользователя с существующим email")
     def test_create_user_with_existing_email(self):
         with allure.step("Генерируем существующий email"):
             email = 'vinkotov@example.com'
@@ -37,7 +37,7 @@ class TestUserRegister(BaseCase):
             assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", f"Unexpected response content {response.content}"
 
     @allure.severity("blocker")
-    @allure.story("Создание пользователя с некорректным email")
+    @allure.title("Создание пользователя с некорректным email")
     def test_create_user_with_incorrect_email(self):
         with allure.step("Генерируем некорректный email"):
             random_string = self.generate_random_string(5)
@@ -49,7 +49,7 @@ class TestUserRegister(BaseCase):
             assert response.content.decode("utf-8") == f"Invalid email format"
 
     @allure.severity("critical")
-    @allure.story("Создание пользователя с очень коротким именем")
+    @allure.title("Создание пользователя с очень коротким именем")
     def test_create_user_with_short_name(self):
         with allure.step("Генерируем username с очень маленьким количеством символов"):
             username = 'a'
@@ -60,7 +60,7 @@ class TestUserRegister(BaseCase):
             assert response.content.decode("utf-8") == f"The value of 'username' field is too short"
 
     @allure.severity("critical")
-    @allure.story("Создание пользователя с очень длинным именем")
+    @allure.title("Создание пользователя с очень длинным именем")
     def test_crete_user_with_long_name(self):
         with allure.step("Генерируем username с очень большим количеством символов"):
             username = self.generate_random_string(251)
@@ -71,7 +71,7 @@ class TestUserRegister(BaseCase):
             assert response.content.decode("utf-8") == f"The value of 'username' field is too long"
 
     @allure.severity("blocker")
-    @allure.story("Проверка обязательности всех полей при регистрации")
+    @allure.title("Проверка обязательности всех полей при регистрации")
     @pytest.mark.parametrize("password,username,firstname,lastname,email", user_data)
     def test_create_user_without_any_field(self, password, username, firstname, lastname, email):
         with allure.step("Заполняем данные с отсутствуеющим одним полем"):
