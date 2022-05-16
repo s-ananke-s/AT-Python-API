@@ -8,12 +8,13 @@ import allure
 @allure.epic("Register user")
 class TestUserRegister(BaseCase):
     user_data = [
-        ("","learqa","learqa","learqa","leanqatest1@example.com"),
-        ("123","","learqa","learqa","leanqatest2@example.com"),
-        ("123","learqa","","learqa","leanqatest3@example.com"),
-        ("123","learqa","learqa","","leanqatest4@example.com"),
-        ("123","learqa","learqa","learqa","")
+        ("", "learqa", "learqa", "learqa", "leanqatest1@example.com"),
+        ("123", "", "learqa", "learqa", "leanqatest2@example.com"),
+        ("123", "learqa", "", "learqa", "leanqatest3@example.com"),
+        ("123", "learqa", "learqa", "", "leanqatest4@example.com"),
+        ("123", "learqa", "learqa", "learqa", "")
     ]
+    tags = ("password", "username", "firstname", "lastname", "email")
 
     @allure.severity("blocker")
     @allure.title("Успешное создание пользователя")
@@ -48,6 +49,7 @@ class TestUserRegister(BaseCase):
             Assertions.assert_code_status(response, 400)
             assert response.content.decode("utf-8") == f"Invalid email format"
 
+    @allure.feature("Проверки на некоррекное имя")
     @allure.severity("critical")
     @allure.title("Создание пользователя с очень коротким именем")
     def test_create_user_with_short_name(self):
@@ -59,6 +61,7 @@ class TestUserRegister(BaseCase):
             Assertions.assert_code_status(response, 400)
             assert response.content.decode("utf-8") == f"The value of 'username' field is too short"
 
+    @allure.feature("Проверки на некоррекное имя")
     @allure.severity("critical")
     @allure.title("Создание пользователя с очень длинным именем")
     def test_crete_user_with_long_name(self):
@@ -70,8 +73,9 @@ class TestUserRegister(BaseCase):
             Assertions.assert_code_status(response, 400)
             assert response.content.decode("utf-8") == f"The value of 'username' field is too long"
 
+    @allure.story("Обязательность полей")
     @allure.severity("blocker")
-    @allure.title("Проверка обязательности всех полей при регистрации")
+    @allure.title("Проверка обязательности всех полей при регистрации {tags}")
     @pytest.mark.parametrize("password,username,firstname,lastname,email", user_data)
     def test_create_user_without_any_field(self, password, username, firstname, lastname, email):
         with allure.step("Заполняем данные с отсутствуеющим одним полем"):

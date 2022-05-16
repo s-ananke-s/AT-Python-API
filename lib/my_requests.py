@@ -4,11 +4,12 @@ from environment import ENV_OBJECT
 
 import allure
 
+
 class MyRequests():
     @staticmethod
     def post(url: str, data: dict = None, headers: dict = None, cookies: dict = None):
         with allure.step(f"POST request to URL '{url}'"):
-            return MyRequests._send(url,data,headers,cookies, 'POST')
+            return MyRequests._send(url, data, headers, cookies, 'POST')
 
     @staticmethod
     def get(url: str, data: dict = None, headers: dict = None, cookies: dict = None):

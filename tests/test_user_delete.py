@@ -3,11 +3,13 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 import time
 import allure
+import pytest
 
 
 @allure.epic("Delete user")
 class TestUserDelete(BaseCase):
     @allure.title("Тест на попытку удаления системного пользователя")
+    @pytest.mark.full
     def test_delete_user_with_id_2(self):
         with allure.step("Логин"):
             login_data = {
@@ -28,6 +30,7 @@ class TestUserDelete(BaseCase):
             assert response2.content.decode("utf-8") == f"Please, do not delete test users with ID 1, 2, 3, 4 or 5."
 
     @allure.title("Тест на успешное удаление авторизованным пользователем")
+    @pytest.mark.full
     def test_delete_authorized_user(self):
         with allure.step("Регистрация"):
             register_data = self.prepare_registration_data()
@@ -65,6 +68,7 @@ class TestUserDelete(BaseCase):
             assert response4.content.decode("utf-8") == f"User not found"
 
     @allure.title("Тест на попытку удалить другого пользователя")
+    @pytest.mark.full
     def test_delete_another_user(self):
         with allure.step("Регистрация первого пользователя"):
             register_data = self.prepare_registration_data()
